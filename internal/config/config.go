@@ -35,7 +35,6 @@ func MustLoad() *Config {
 
 	// Путь до yaml
 	configPath := filepath.Join("config", fmt.Sprintf("%s.yaml", env))
-
 	if _, err := os.Stat(configPath); os.IsNotExist(err) {
 		panic(fmt.Sprintf("config file not found: %s", configPath))
 	}
@@ -45,6 +44,7 @@ func MustLoad() *Config {
 	if err := cleanenv.ReadConfig(configPath, &cfg); err != nil {
 		panic("cannot read config: " + err.Error())
 	}
+	fmt.Println(cfg.DatabaseURL)
 
 	// Проверяем DATABASE_URL (берем из окружения)
 	if cfg.DatabaseURL = os.Getenv("DATABASE_URL"); cfg.DatabaseURL == "" {
